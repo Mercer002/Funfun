@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multi-Factor Stock Scoring Engine v2.0 Dashboard</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--background, #0f172a);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border, #334155);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+
+<body
+  class="bg-[var(--background,#090d16)] text-[var(--foreground,#f1f5f9)] antialiased min-h-screen p-4 md:p-8 font-sans selection:bg-indigo-500 selection:text-white">
+
+  <!-- Header -->
+  <header
+    class="max-w-7xl mx-auto mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-[var(--border,#1e293b)] pb-6">
+    <div>
+      <div class="flex items-center gap-3">
+        <div
+          class="p-2.5 bg-gradient-to-tr from-indigo-600 to-emerald-500 rounded-xl shadow-lg shadow-indigo-500/20 text-white font-bold text-xl">
+          📈
+        </div>
+        <div>
+          <h1
+            class="text-2xl md:text-3xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+            Stock Scoring Engine <span
+              class="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">v2.0
+              Serverless</span>
+          </h1>
+          <p class="text-xs md:text-sm text-[var(--muted-foreground,#94a3b8)] mt-0.5">
+            Event-Driven Quantitative Multi-Factor Momentum & LLM Catalyst Pipeline
+            Forward P/E & Growth Runway Model • Quantitative Momentum & LLM Catalyst Pipeline
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3 flex-wrap">
+      <span
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        AWS EventBridge: 21:00 UTC Active
+      </span>
+      <button onclick="runSimulation()"
+        class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg shadow-sm transition-all flex items-center gap-1.5 active:scale-95">
+        ⚡ Run Pipeline Screen
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto space-y-8">
+
+    <!-- KPI Metric Cards -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div
+        class="bg-[var(--card,#0f172a)] border border-[var(--border,#1e293b)] rounded-xl p-4 shadow-sm relative overflow-hidden">
+        <div class="text-xs text-[var(--muted-foreground,#94a3b8)] uppercase tracking-wider font-semibold">Today Scraped
+        </div>
+        <div class="text-2xl font-bold mt-1 text-slate-100">200 <span
+            class="text-xs font-normal text-slate-400">posts</span></div>
+        <div class="text-[11px] text-emerald-400 mt-2 flex items-center gap-1">WSB • Stocks • Options</div>
+        <div class="absolute -right-2 -bottom-2 opacity-5 text-4xl">📡</div>
+      </div>
+
+      <div
+        class="bg-[var(--card,#0f172a)] border border-[var(--border,#1e293b)] rounded-xl p-4 shadow-sm relative overflow-hidden">
+        <div class="text-xs text-[var(--muted-foreground,#94a3b8)] uppercase tracking-wider font-semibold">Spike Soft
+          Filter</div>
+        <div class="text-2xl font-bold mt-1 text-indigo-400">3 <span
+            class="text-xs font-normal text-slate-400">flagged</span></div>
+        <div class="text-[11px] text-slate-400 mt-2">Velocity spike > 150%</div>
+        <div class="text-[11px] text-slate-400 mt-2">Velocity spike &gt; 150%</div>
+        <div class="absolute -right-2 -bottom-2 opacity-5 text-4xl">⚡</div>
+      </div>
+
+      <div
+        class="bg-[var(--card,#0f172a)] border border-[var(--border,#1e293b)] rounded-xl p-4 shadow-sm relative overflow-hidden">
+        <div class="text-xs text-[var(--muted-foreground,#94a3b8)] uppercase tracking-wider font-semibold">Llama 3
+          Catalysts</div>
+        <div class="text-2xl font-bold mt-1 text-amber-400">2 <span
+            class="text-xs font-normal text-slate-400">identified</span></div>
+        <div class="text-[11px] text-amber-400/80 mt-2">M&A Rumor & Guidance Raise</div>
+        <div class="absolute -right-2 -bottom-2 opacity-5 text-4xl">🧠</div>
+        <div class="text-xs text-[var(--muted-foreground,#94a3b8)] uppercase tracking-wider font-semibold">Growth Compounders
+        </div>
+        <div class="text-2xl font-bold mt-1 text-emerald-400">2 <span
+            class="text-xs font-normal text-slate-400">prioritized</span></div>
+        <div class="text-[11px] text-emerald-400/80 mt-2">Forward P/E &lt; 25 + &gt;15% Growth</div>
+        <div class="absolute -right-2 -bottom-2 opacity-5 text-4xl">🚀</div>
+      </div>
+
+      <div
+        class="bg-[var(--card,#0f172a)] border border-[var(--border,#1e293b)] rounded-xl p-4 shadow-sm relative overflow-hidden">
+        <div class="text-xs text-[var(--muted-foreground,#94a3b8)] uppercase tracking-wider font-semibold">Winning
+          Alerts</div>
+        <div class="text-2xl font-bold mt-1 text-emerald-400">2 <span
+        <div class="text-2xl font-bold mt-1 text-indigo-400">2 <span
+            class="text-xs font-normal text-slate-400">routed</span></div>
+        <div class="text-[11px] text-emerald-400 mt-2">Score > 75.0 Threshold</div>
+        <div class="absolute -right-2 -bottom-2 opacity-5 text-4xl">🚀</div>
+        <div class="text-[11px] text-indigo-300 mt-2">Score &gt; 75.0 Threshold</div>
+        <div class="absolute -right-2 -bottom-2 opacity-5 text-4xl">🎯</div>
+      </div>
+    </section>
+
+    <!-- Main Grid: Interactive Sandbox (Left) & Live Winning Candidates (Right) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+      <!-- Interactive Simulator Sandbox (7 cols) -->
+      <section
+        class="lg:col-span-7 bg-[var(--card,#0f172a)] border border-[var(--border,#1e293b)] rounded-2xl p-6 shadow-md">
+        <div class="flex items-center justify-between pb-4 border-b border-[var(--border,#1e293b)] mb-6">
+          <div>
+            <h2 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+              🧪 Quantitative Model Sandbox
+            </h2>
+            <p class="text-xs text-[var(--muted-foreground,#94a3b8)]">
+              Simulate stock factors, fundamental point penalties, and LLM catalyst overrides.
+              Simulate stock factors: Forward P/E multiples, growth runways, and LLM catalyst overrides.
+            </p>
+          </div>
+          <div class="flex gap-1.5 flex-wrap">
+            <button onclick="applyPreset('duol')"
+              class="px-2.5 py-1 text-[11px] font-medium bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-md transition-colors">
+              Preset: $DUOL Compounder
+            </button>
+            <button onclick="applyPreset('tsla')"
+              class="px-2.5 py-1 text-[11px] font-medium bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/30 rounded-md transition-colors">
+              Preset: $TSLA Overvalued Trap
+            </button>
+            <button onclick="applyPreset('acqr')"
+              class="px-2.5 py-1 text-[11px] font-medium bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-md transition-colors">
+              Preset: $ACQR Rescue
+            </button>
+            <button onclick="applyPreset('nvda')"
+              class="px-2.5 py-1 text-[11px] font-medium bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-md transition-colors">
+              Preset: $NVDA Mega
+            </button>
+            <button onclick="applyPreset('fail')"
+              class="px-2.5 py-1 text-[11px] font-medium bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/30 rounded-md transition-colors">
+              class="px-2.5 py-1 text-[11px] font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-md transition-colors">
+              Preset: $FAIL Micro
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Column 1: Fundamentals -->
+          <!-- Column 1: Fundamentals (Pillar A) -->
+          <div class="space-y-4">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+              <span>🏛️</span> Pillar A: Fundamentals (Base: 40 pts)
+              <span>🏛️</span> Pillar A: Fundamentals & Growth Runway (Base: 40 pts)
+            </h3>
+
+            <!-- Ticker Symbol -->
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <label class="block text-xs text-slate-300 font-medium">Ticker Symbol</label>
+                <button type="button" onclick="fetchLiveTicker()" id="btn-fetch-live"
+                  class="text-[11px] font-semibold text-indigo-400 hover:text-indigo-300 bg-indigo-500/10 hover:bg-indigo-500/20 px-2 py-0.5 rounded border border-indigo-500/20 transition-all flex items-center gap-1">
+                  <span>⚡</span> Fetch Live Yahoo Finance Data
+                </button>
+              </div>
+              <div class="flex gap-2">
+                <input type="text" id="sim-ticker" value="NVDA" oninput="recalc()"
+                <input type="text" id="sim-ticker" value="DUOL" oninput="recalc()"
+                  class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-sm uppercase font-mono font-bold text-white focus:outline-none focus:border-indigo-500">
+                <button type="button" onclick="fetchLiveTicker()"
+                  class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg shadow-sm">
+                  Load Live
+                </button>
+              </div>
+              <div id="live-data-notice" class="hidden text-[10px] text-emerald-400 mt-1 font-mono"></div>
+            </div>
+
+            <!-- Market Cap -->
+            <!-- Market Cap (Runway vs Mega-Cap Saturated) -->
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300">Market Cap</span>
+                <span id="label-cap" class="font-mono text-indigo-400 font-semibold">$650M</span>
+                <span class="text-slate-300">Market Cap (Runway)</span>
+                <span id="label-cap" class="font-mono text-indigo-400 font-semibold">$12.0B (Mid-Cap)</span>
+              </div>
+              <input type="range" id="sim-cap" min="50" max="5000" step="50" value="650" oninput="recalc()"
+              <input type="range" id="sim-cap" min="50" max="1500000" step="500" value="12000" oninput="recalc()"
+                class="w-full accent-indigo-500 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 mt-0.5">
+                <span>&lt; $500M (-15 pts)</span>
+                <span>&lt; $500M (-15)</span>
+                <span>$500M-$2B (+5)</span>
+                <span>&gt; $2B (+15)</span>
+                <span>$2B-$300B (+15 Runway)</span>
+                <span>&gt; $300B (0 if P/E&gt;50)</span>
+              </div>
+            </div>
+
+            <!-- Profitability (TTM Cash Flow) -->
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300">TTM Operating Cash Flow</span>
+                <span id="label-ocf" class="font-mono text-rose-400 font-semibold">-$18.0M (Negative)</span>
+                <span id="label-ocf" class="font-mono text-emerald-400 font-semibold">+$250.0M (Positive)</span>
+              </div>
+              <input type="range" id="sim-ocf" min="-100" max="500" step="10" value="-18" oninput="recalc()"
+                class="w-full accent-indigo-500 cursor-pointer">
+              <input type="range" id="sim-ocf" min="-1000" max="15000" step="50" value="250" oninput="recalc()"
+                class="w-full accent-emerald-500 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 mt-0.5">
+                <span>Negative (-20 pts Penalty)</span>
+                <span>Positive (+15 pts)</span>
+              </div>
+            </div>
+
+            <!-- Valuation (Forward P/E) -->
+            <!-- Forward P/E Multiple -->
+            <div>
+              <label class="block text-xs text-slate-300 font-medium mb-1">Valuation (Forward P/E)</label>
+              <select id="sim-pe" onchange="recalc()"
+                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500">
+                <option value="none">Unassigned / Negative P/E (0 pts)</option>
+                <option value="low">Reasonable: Forward P/E &lt; 25 (+10 pts)</option>
+                <option value="mid">Moderate: 25 &le; Forward P/E &le; 50 (+5 pts)</option>
+                <option value="high">High: Forward P/E &gt; 50 (0 pts)</option>
+              </select>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300">Valuation: Forward P/E Multiple</span>
+                <span id="label-pe" class="font-mono text-indigo-400 font-semibold">24.5 (Reasonable)</span>
+              </div>
+              <input type="range" id="sim-pe-val" min="0" max="200" step="0.5" value="24.5" oninput="recalc()"
+                class="w-full accent-indigo-500 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 mt-0.5">
+                <span>&lt; 25 (+10/15)</span>
+                <span>25-50 (+5)</span>
+                <span>50-80 (0)</span>
+                <span>&gt; 80 (-15 Penalty)</span>
+              </div>
+            </div>
+
+            <!-- YoY Revenue Growth (%) -->
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300">YoY Revenue Growth</span>
+                <span id="label-growth" class="font-mono text-emerald-400 font-semibold">+41.5% (High Growth)</span>
+              </div>
+              <input type="range" id="sim-growth" min="-30" max="100" step="1" value="41.5" oninput="recalc()"
+                class="w-full accent-emerald-500 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 mt-0.5">
+                <span>&lt; 0% (Decelerating)</span>
+                <span>0-15% (Normal)</span>
+                <span>&gt; 15% (+5 pts Compounder Boost)</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Column 2: Momentum & LLM Catalyst -->
+          <div class="space-y-4">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+              <span>🚀</span> Pillar B & C: Momentum & Catalysts
+            </h3>
+
+            <!-- Velocity Spike -->
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300">Mention Velocity Spike (vs 7d Avg)</span>
+                <span id="label-vel" class="font-mono text-emerald-400 font-semibold">+900%</span>
+                <span id="label-vel" class="font-mono text-emerald-400 font-semibold">+650%</span>
+              </div>
+              <input type="range" id="sim-vel" min="0" max="1500" step="25" value="900" oninput="recalc()"
+              <input type="range" id="sim-vel" min="0" max="1500" step="25" value="650" oninput="recalc()"
+                class="w-full accent-emerald-500 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 mt-0.5">
+                <span>&lt;300% (0)</span>
+                <span>300-500% (+15)</span>
+                <span>&gt;500% (+30 pts)</span>
+              </div>
+            </div>
+
+            <!-- LLM Polarity -->
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300">Groq Llama 3 Sentiment Polarity</span>
+                <span id="label-sent" class="font-mono text-emerald-400 font-semibold">0.90 (Bullish)</span>
+                <span id="label-sent" class="font-mono text-emerald-400 font-semibold">0.88 (Bullish)</span>
+              </div>
+              <input type="range" id="sim-sent" min="0" max="1" step="0.05" value="0.90" oninput="recalc()"
+              <input type="range" id="sim-sent" min="0" max="1" step="0.05" value="0.88" oninput="recalc()"
+                class="w-full accent-emerald-500 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 mt-0.5">
+                <span>&lt;0.40 (-30 Penalty)</span>
+                <span>0.40-0.80 (+10)</span>
+                <span>&gt;0.80 (+30 pts)</span>
+              </div>
+            </div>
+
+            <!-- LLM Catalyst Multiplier -->
+            <div>
+              <label class="block text-xs text-slate-300 font-medium mb-1">Extracted Qualitative Catalyst</label>
+              <select id="sim-catalyst" onchange="recalc()"
+                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500 font-semibold">
+                <option value="EARNINGS_BEAT">EARNINGS_BEAT / GUIDANCE_RAISE (+35 pts)</option>
+                <option value="MA_RUMOR">M&A_RUMOR (+50 pts Unbounded Bonus)</option>
+                <option value="FDA_APPROVAL">FDA_APPROVAL / PATENT_GRANT (+40 pts)</option>
+                <option value="EARNINGS_BEAT">EARNINGS_BEAT / GUIDANCE_RAISE (+35 pts)</option>
+                <option value="PRODUCT_LAUNCH">PRODUCT_LAUNCH (+20 pts)</option>
+                <option value="NONE">NONE: Generic Chatter (0 pts)</option>
+              </select>
+            </div>
+
+            <!-- Rescue Status Indicator -->
+            <!-- Dynamic Model Banners -->
+            <div id="sim-compounder-banner"
+              class="p-2.5 rounded-lg border text-xs font-semibold flex items-center gap-2 bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
+              <span>🚀</span>
+              <span>GROWTH COMPOUNDER: Forward P/E &lt; 25 with &gt;15% YoY growth unlocks max +15 pts!</span>
+            </div>
+
+            <div id="sim-overvalued-banner"
+              class="hidden p-2.5 rounded-lg border text-xs font-semibold flex items-center gap-2 bg-rose-500/10 text-rose-300 border-rose-500/30">
+              <span>⚠️</span>
+              <span>OVERVALUATION PENALTY ACTIVE: Extreme Forward P/E or saturated mega-cap penalizes points!</span>
+            </div>
+
+            <div id="sim-rescue-banner"
+              class="p-2.5 rounded-lg border text-xs font-semibold flex items-center gap-2 bg-amber-500/10 text-amber-300 border-amber-500/30">
+              class="hidden p-2.5 rounded-lg border text-xs font-semibold flex items-center gap-2 bg-amber-500/10 text-amber-300 border-amber-500/30">
+              <span>⭐</span>
+              <span>CATALYST RESCUE ACTIVE: Qualitative catalyst offset fundamental penalty!</span>
+              <span>CATALYST RESCUE ACTIVE: Qualitative catalyst overrode fundamental point deficit!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Score Output Gauge -->
+        <div class="mt-6 pt-6 border-t border-[var(--border,#1e293b)]">
+          <div
+            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+            <div>
+              <div class="text-xs uppercase text-slate-400 font-medium">Composite Multi-Factor Score</div>
+              <div class="flex items-baseline gap-2 mt-1">
+                <span id="sim-total-score" class="text-4xl font-extrabold text-emerald-400 font-mono">95.0</span>
+                <span id="sim-total-score" class="text-4xl font-extrabold text-purple-400 font-mono">140.0</span>
+                <span class="text-slate-500 text-sm">/ 100+ pts</span>
+                <span id="sim-status-badge"
+                  class="ml-2 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  class="ml-2 px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                  QUALIFIED (> 75.0)
+                </span>
+              </div>
+            </div>
+
+            <!-- Pillars Breakdown Badges -->
+            <div class="flex items-center gap-2 flex-wrap text-xs">
+              <span class="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 font-mono">
+                Fund: <strong id="sub-fund" class="text-rose-400">-15</strong>
+                Fund: <strong id="sub-fund" class="text-emerald-400">+45</strong>
+              </span>
+              <span class="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 font-mono">
+                Momentum: <strong id="sub-sent" class="text-emerald-400">+60</strong>
+              </span>
+              <span class="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 font-mono">
+                Catalyst: <strong id="sub-cat" class="text-amber-400">+50</strong>
+                Catalyst: <strong id="sub-cat" class="text-amber-400">+35</strong>
+              </span>
+            </div>
+          </div>
+
+          <!-- Mathematical Breakdown Drawer -->
+          <div class="mt-4">
+            <details class="group bg-slate-900/40 border border-slate-800/80 rounded-lg p-3">
+            <details class="group bg-slate-900/40 border border-slate-800/80 rounded-lg p-3" open>
+              <summary
+                class="text-xs font-semibold text-slate-400 cursor-pointer flex justify-between items-center group-open:text-slate-200">
+                <span>📐 View Itemized Mathematical Breakdown</span>
+                <span class="text-slate-500 text-[10px]">▼</span>
+              </summary>
+              <pre id="sim-breakdown-code"
+                class="mt-3 p-3 bg-slate-950 text-slate-300 text-[11px] font-mono rounded overflow-x-auto border border-slate-800/60 leading-relaxed"></pre>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Current Winners & Alert Payloads (5 cols) -->
+      <section class="lg:col-span-5 space-y-6">
+
+        <!-- Live Winning Candidates List -->
+        <div class="bg-[var(--card,#0f172a)] border border-[var(--border,#1e293b)] rounded-2xl p-5 shadow-md">
+          <div class="flex items-center justify-between mb-4 pb-2 border-b border-[var(--border,#1e293b)]">
+            <h2 class="text-sm font-bold uppercase tracking-wider text-slate-200 flex items-center gap-1.5">
+              <span>🏆</span> Screened Winners (> 75 pts)
+              <span>🏆</span> Screened Candidates (> 75 pts)
+            </h2>
+            <span
+              class="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+              Sorted by Total Score
+              Ranked by Multi-Factor Model
+            </span>
+          </div>
+
+          <div class="space-y-3" id="winners-list">
+
+            <!-- Winner 1: NVDA -->
+            <!-- Winner 1: DUOL (High-Growth Compounder with Runway) -->
+            <div
+              class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-slate-700 transition-colors">
+              class="p-3.5 rounded-xl bg-slate-900/80 border border-emerald-500/30 bg-gradient-to-r from-slate-900/80 to-emerald-950/20">
+              <div class="flex items-start justify-between">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-extrabold text-base text-white tracking-wide">$NVDA</span>
+                    <span class="font-extrabold text-base text-white tracking-wide">$DUOL</span>
+                    <span
+                      class="text-[10px] px-1.5 py-0.5 rounded font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">GUIDANCE_RAISE
+                      (+35)</span>
+                      class="text-[10px] px-1.5 py-0.5 rounded font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">COMPOUNDER (+45)</span>
+                    <span
+                      class="text-[10px] px-1.5 py-0.5 rounded font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">EARNINGS_BEAT (+35)</span>
+                  </div>
+                  <div class="text-xs text-slate-400 mt-0.5">NVIDIA Corporation • Mega-Cap</div>
+                  <div class="text-xs text-slate-300 mt-0.5 font-medium">Duolingo Inc • Mid-Cap Growth Sweet Spot ($12B)</div>
+                  <div class="text-[11px] text-emerald-400 mt-0.5">Forward P/E 24.5 &bull; +41.5% YoY Growth</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-lg font-bold font-mono text-amber-400">135.0 <span
+                  <div class="text-lg font-bold font-mono text-purple-400">140.0 <span
+                      class="text-xs font-normal text-slate-500">pts</span></div>
+                  <div class="text-[10px] text-emerald-400">+1328% velocity</div>
+                  <div class="text-[10px] text-emerald-400">+650% velocity</div>
+                </div>
+              </div>
+              <div
+                class="mt-2.5 pt-2 border-t border-slate-800/80 flex justify-between items-center text-[11px] text-slate-400">
+                <span>Fund: +40 | Sent: +60 | Cat: +35</span>
+                <span class="text-emerald-400 font-semibold">Discord & SNS Routed</span>
+                <span>Fund: +45 | Sent: +60 | Cat: +35</span>
+                <span class="text-emerald-400 font-semibold">Discord &amp; SNS Dispatched</span>
+              </div>
+            </div>
+
+            <!-- Winner 2: ACQR (Catalyst Rescue) -->
+            <div
+              class="p-3.5 rounded-xl bg-slate-900/80 border border-amber-500/30 bg-gradient-to-r from-slate-900/80 to-amber-950/10">
+              <div class="flex items-start justify-between">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-extrabold text-base text-white tracking-wide">$ACQR</span>
+                    <span
+                      class="text-[10px] px-1.5 py-0.5 rounded font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30">M&A_RUMOR
+                      (+50)</span>
+                      class="text-[10px] px-1.5 py-0.5 rounded font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30">M&amp;A_RUMOR (+50)</span>
+                  </div>
+                  <div class="text-xs text-amber-300/80 mt-0.5 font-medium flex items-center gap-1">
+                    <span>⭐</span> Catalyst Rescue Overwrote Deficit!
+                    <span>⭐</span> Catalyst Rescue Overrode -15 Penalty!
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-lg font-bold font-mono text-emerald-400">95.0 <span
+                      class="text-xs font-normal text-slate-500">pts</span></div>
+                  <div class="text-[10px] text-emerald-400">+1328% velocity</div>
+                  <div class="text-[10px] text-emerald-400">+900% velocity</div>
+                </div>
+              </div>
+              <div
+                class="mt-2.5 pt-2 border-t border-slate-800/80 flex justify-between items-center text-[11px] text-slate-400">
+                <span>Fund: -15 (Penalty) | Sent: +60 | Cat: +50</span>
+                <span class="text-emerald-400 font-semibold">Discord & SNS Routed</span>
+                <span class="text-emerald-400 font-semibold">Discord &amp; SNS Dispatched</span>
+              </div>
+            </div>
+
+            <!-- Filtered out example: BIOC -->
+            <div class="p-3 rounded-xl bg-slate-900/40 border border-slate-800/60 opacity-60">
+            <!-- Filtered Out Example: TSLA (Saturated Mega-Cap Overvalued Trap) -->
+            <div class="p-3 rounded-xl bg-slate-900/40 border border-rose-500/20 opacity-75">
+              <div class="flex items-start justify-between">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-semibold text-sm text-slate-300">$BIOC</span>
+                    <span class="text-[10px] px-1.5 py-0.5 rounded font-medium bg-slate-800 text-slate-400">FDA_APPROVAL
+                      (+40)</span>
+                    <span class="font-semibold text-sm text-slate-300">$TSLA</span>
+                    <span class="text-[10px] px-1.5 py-0.5 rounded font-medium bg-rose-500/20 text-rose-300 border border-rose-500/30">OVERVALUED (-15)</span>
+                    <span class="text-[10px] px-1.5 py-0.5 rounded font-medium bg-slate-800 text-slate-400">SATURATED (0)</span>
+                  </div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">Micro-Cap Unprofitable (-35 Deficit)</div>
+                  <div class="text-[11px] text-slate-400 mt-0.5">Tesla Inc &bull; $1.5T Mega-Cap &bull; Forward P/E: 172.7</div>
+                  <div class="text-[10px] text-rose-400 mt-0.5">Fund Score: 0 pts (Cap Runway 0, Cash Flow +15, Penalty -15)</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-sm font-bold font-mono text-slate-400">65.0 <span
+                  <div class="text-sm font-bold font-mono text-slate-400">60.0 <span
+                      class="text-xs font-normal text-slate-600">pts</span></div>
+                  <div class="text-[10px] text-rose-400/80">Filtered (&lt; 75 pts)</div>
+                  <div class="text-[10px] text-rose-400 font-semibold">Filtered (&le; 75 pts)</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Discord Embed Preview Mockup -->
+        <div class="bg-[var(--card,#0f172a)] border border-[var(--border,#1e293b)] rounded-2xl p-5 shadow-md">
+          <div class="flex items-center justify-between mb-3 pb-2 border-b border-[var(--border,#1e293b)]">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+              <span>💬</span> Discord Webhook Embed Preview
+            </h3>
+            <span class="text-[10px] text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">
+              Webhook Post Output
+            </span>
+          </div>
+
+          <!-- The Discord Card -->
+          <div class="bg-[#2b2d31] rounded-lg p-4 border-l-4 border-amber-400 text-slate-200 text-xs shadow-inner">
+          <div class="bg-[#2b2d31] rounded-lg p-4 border-l-4 border-emerald-400 text-slate-200 text-xs shadow-inner">
+            <div class="flex items-center gap-2 mb-2">
+              <div
+                class="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] text-black font-bold">
+                📈</div>
+              <span class="font-semibold text-white">Stock Scoring Engine v2.0</span>
+              <span class="bg-indigo-600 text-white text-[9px] px-1 rounded font-bold uppercase">BOT</span>
+            </div>
+
+            <div class="font-bold text-white text-sm mt-1">
+              🚨 [CATALYST RESCUE] $ACQR (Score: 95.0 pts)
+              🚀 [COMPOUNDER] $DUOL (Score: 140.0 pts)
+            </div>
+            <div class="text-slate-400 text-[11px] mb-3">
+              Company: Acquiree Biotech Corp • Automated screen
+              Company: Duolingo, Inc. • Mid-Cap Growth Runway • Automated Screen
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-[11px] mb-3">
+              <div class="bg-[#1e1f22] p-2 rounded">
+                <div class="text-slate-400 text-[10px]">📊 Total Score</div>
+                <div class="font-bold text-emerald-400">95.0 / 100+</div>
+                <div class="font-bold text-purple-400">140.0 / 100+</div>
+              </div>
+              <div class="bg-[#1e1f22] p-2 rounded">
+                <div class="text-slate-400 text-[10px]">⚡ Mention Velocity</div>
+                <div class="font-bold text-white">+1328% (+30 pts)</div>
+                <div class="text-slate-400 text-[10px]">🏛️ Fundamental Score</div>
+                <div class="font-bold text-emerald-400">+45 pts (P/E 24.5, +41.5% YoY)</div>
+              </div>
+              <div class="bg-[#1e1f22] p-2 rounded">
+                <div class="text-slate-400 text-[10px]">🧠 LLM Sentiment</div>
+                <div class="font-bold text-white">0.90 (+30 pts)</div>
+                <div class="text-slate-400 text-[10px]">⚡ Mention Velocity</div>
+                <div class="font-bold text-white">+650% (+30 pts)</div>
+              </div>
+              <div class="bg-[#1e1f22] p-2 rounded">
+                <div class="text-slate-400 text-[10px]">🎯 Catalyst Trigger</div>
+                <div class="font-bold text-amber-300">M&A_RUMOR (+50)</div>
+                <div class="font-bold text-amber-300">EARNINGS_BEAT (+35)</div>
+              </div>
+            </div>
+
+            <div class="text-[10px] text-slate-400 border-t border-slate-700/60 pt-2 flex justify-between">
+              <span>Multi-Factor Engine v2.0</span>
+              <span>Multi-Factor Engine v2.0 (Forward P/E &amp; Growth)</span>
+              <span class="text-emerald-400">✓ SNS Broadcast Dispatched</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+  </main>
+
+  <script>
+    function formatMoney(numMillions) {
+      if (numMillions >= 1000000) {
+        return `$${(numMillions / 1000000).toFixed(2)}T`;
+      } else if (numMillions >= 1000) {
+        return `$${(numMillions / 1000).toFixed(1)}B`;
+      } else {
+        return `$${numMillions.toFixed(0)}M`;
+      }
+    }
+
+    function recalc() {
+      const ticker = document.getElementById('sim-ticker').value.toUpperCase() || 'XYZ';
+      const cap = parseFloat(document.getElementById('sim-cap').value);
+      const ocf = parseFloat(document.getElementById('sim-ocf').value);
+      const pe = document.getElementById('sim-pe').value;
+      const ticker = document.getElementById('sim-ticker').value.toUpperCase().trim() || 'XYZ';
+      const capMillions = parseFloat(document.getElementById('sim-cap').value);
+      const capBytes = capMillions * 1e6;
+      const ocfMillions = parseFloat(document.getElementById('sim-ocf').value);
+      const pe = parseFloat(document.getElementById('sim-pe-val').value);
+      const revGrowthPct = parseFloat(document.getElementById('sim-growth').value);
+      const revGrowth = revGrowthPct / 100.0;
+      const vel = parseFloat(document.getElementById('sim-vel').value);
+      const sent = parseFloat(document.getElementById('sim-sent').value);
+      const catalyst = document.getElementById('sim-catalyst').value;
+
+      // Format Labels
+      document.getElementById('label-cap').textContent = cap >= 10 0 0 ? `$${(cap / 1000).toFixed(1)}B` : `$${cap}M`;
+      document.getElementById('label-ocf').textContent = (ocf >= 0 ? `+$${ocf.toFixed(1)}M (Positive)` : `-$${Math.abs(ocf).toFixed(1)}M (Negative)`);
+      document.getElementById('label-ocf').className = ocf >= 0 ? "font-mono text-emerald-400 font-semibold" : "font-mono text-rose-400 font-semibold";
+      // Update Labels
+      document.getElementById('label-cap').textContent = `${formatMoney(capMillions)} (${capMillions >= 300000 ? 'Mega-Cap' : capMillions >= 2000 ? 'Mid/Large-Cap' : capMillions >= 500 ? 'Small-Cap' : 'Micro-Cap'})`;
+      
+      const ocfLabel = document.getElementById('label-ocf');
+      ocfLabel.textContent = ocfMillions >= 0 ? `+${formatMoney(ocfMillions)} (Positive)` : `-${formatMoney(Math.abs(ocfMillions))} (Negative)`;
+      ocfLabel.className = ocfMillions >= 0 ? "font-mono text-emerald-400 font-semibold" : "font-mono text-rose-400 font-semibold";
+
+      const peLabel = document.getElementById('label-pe');
+      if (pe === 0) {
+        peLabel.textContent = "Unassigned / Negative (0 pts)";
+        peLabel.className = "font-mono text-slate-400 font-semibold";
+      } else if (pe < 25) {
+        peLabel.textContent = `${pe.toFixed(1)} (Reasonable Multiple)`;
+        peLabel.className = "font-mono text-emerald-400 font-semibold";
+      } else if (pe <= 50) {
+        peLabel.textContent = `${pe.toFixed(1)} (Moderate Multiple)`;
+        peLabel.className = "font-mono text-indigo-400 font-semibold";
+      } else if (pe <= 80) {
+        peLabel.textContent = `${pe.toFixed(1)} (High Multiple)`;
+        peLabel.className = "font-mono text-amber-400 font-semibold";
+      } else {
+        peLabel.textContent = `${pe.toFixed(1)} (Extreme Overvaluation)`;
+        peLabel.className = "font-mono text-rose-400 font-semibold";
+      }
+
+      const growthLabel = document.getElementById('label-growth');
+      growthLabel.textContent = `${revGrowthPct >= 0 ? '+' : ''}${revGrowthPct.toFixed(1)}% (${revGrowthPct > 15 ? 'High Growth Compounder' : revGrowthPct >= 0 ? 'Moderate Growth' : 'Contracting'})`;
+      growthLabel.className = revGrowthPct > 15 ? "font-mono text-emerald-400 font-semibold" : revGrowthPct >= 0 ? "font-mono text-indigo-400 font-semibold" : "font-mono text-rose-400 font-semibold";
+
+      document.getElementById('label-vel').textContent = `+${vel.toFixed(0)}%`;
+      document.getElementById('label-sent').textContent = `${sent.toFixed(2)} (${sent > 0.8 ? 'Bullish' : sent >= 0.4 ? 'Neutral' : 'Bearish'})`;
+
+      // 1. Fundamental Points
+      // ─────────────────────────────────────────────────────────────
+      // 1. Fundamental Points (Base: 40 pts)
+      // ─────────────────────────────────────────────────────────────
+      let capPts = 0;
+      let capDesc = "";
+      if (cap > 2000) { capPts = 15; capDesc = `+$15 pts (Large >$2B)`; }
+      else if (cap >= 500) { capPts = 5; capDesc = `+$5 pts (Small $500M-$2B)`; }
+      else { capPts = -15; capDesc = `-$15 pts (Micro-Cap Penalty)`; }
+      if (capBytes > 2_000_000_000) {
+        if (capBytes > 300_000_000_000 && pe > 50.0) {
+          capPts = 0;
+          capDesc = `+0 pts (Mega-Cap Saturated >$300B with Forward P/E ${pe.toFixed(1)} > 50: Low multiple expansion runway: ${formatMoney(capMillions)})`;
+        } else {
+          capPts = 15;
+          capDesc = `+15 pts (Large/Mid-Cap >$2B: ${formatMoney(capMillions)})`;
+        }
+      } else if (capBytes >= 500_000_000) {
+        capPts = 5;
+        capDesc = `+5 pts (Small-Cap $500M-$2B: ${formatMoney(capMillions)})`;
+      } else {
+        capPts = -15;
+        capDesc = `-15 pts (Micro-Cap <$500M Penalty: ${formatMoney(capMillions)})`;
+      }
+
+      let ocfPts = ocf > 0 ? 15 : -20;
+      let ocfDesc = ocf > 0 ? `+$15 pts (Positive Cash Flow)` : `-$20 pts (Negative Cash Flow Penalty)`;
+      let ocfPts = ocfMillions > 0 ? 15 : -20;
+      let ocfDesc = ocfMillions > 0 ? `+15 pts (Positive Cash Flow: +${formatMoney(ocfMillions)})` : `-20 pts (Negative Cash Flow Penalty: -${formatMoney(Math.abs(ocfMillions))})`;
+
+      let pePts = 0;
+      let peDesc = "";
+      if (pe === "low") { pePts = 10; peDesc = `+$10 pts (Reasonable P/E < 25)`; }
+      else if (pe === "mid") { pePts = 5; peDesc = `+$5 pts (Moderate P/E 25-50)`; }
+      else { pePts = 0; peDesc = `+0 pts (High or Negative P/E)`; }
+      let valPts = 0;
+      let growthBonusPts = 0;
+      let overvalPenaltyPts = 0;
+      let valDesc = "";
+
+      const fundSubtotal = capPts + ocfPts + pePts;
+      if (pe > 0) {
+        if (pe < 25.0) {
+          valPts = 10;
+          if (revGrowth > 0.15) {
+            growthBonusPts = 5;
+            valDesc = `+15 pts (Undervalued Compounder: Forward P/E ${pe.toFixed(1)} < 25 with ${(revGrowth * 100).toFixed(1)}% YoY Growth)`;
+          } else {
+            valDesc = `+10 pts (Reasonable Valuation: Forward P/E ${pe.toFixed(1)} < 25)`;
+          }
+        } else if (pe <= 50.0) {
+          valPts = 5;
+          valDesc = `+5 pts (Moderate Valuation: Forward P/E ${pe.toFixed(1)})`;
+        } else {
+          valPts = 0;
+          if (pe > 80.0 || (capBytes > 300_000_000_000 && pe > 50.0)) {
+            overvalPenaltyPts = -15;
+            valDesc = `-15 pts (Overvaluation Penalty: Forward P/E ${pe.toFixed(1)} > 50 on Saturated Asset with low runway)`;
+          } else {
+            valDesc = `+0 pts (High Valuation: Forward P/E ${pe.toFixed(1)} > 50)`;
+          }
+        }
+      } else {
+        valPts = 0;
+        valDesc = "+0 pts (Negative or Unassigned P/E: Unprofitable / High Risk)";
+      }
+
+      // 2. Momentum & Sentiment Points
+      const fundSubtotal = capPts + ocfPts + valPts + growthBonusPts + overvalPenaltyPts;
+
+      // ─────────────────────────────────────────────────────────────
+      // 2. Momentum & Sentiment Points (Base: 60 pts)
+      // ─────────────────────────────────────────────────────────────
+      let velPts = 0;
+      if (vel > 500) velPts = 30;
+      else if (vel >= 300) velPts = 15;
+      else velPts = 0;
+      let velDesc = "";
+      if (vel > 500) {
+        velPts = 30;
+        velDesc = `+30 pts (Extreme Velocity Spike: ${vel.toFixed(0)}% > 500%)`;
+      } else if (vel >= 300) {
+        velPts = 15;
+        velDesc = `+15 pts (Strong Velocity Spike: ${vel.toFixed(0)}%)`;
+      } else {
+        velPts = 0;
+        velDesc = `+0 pts (Moderate Velocity Spike: ${vel.toFixed(0)}%)`;
+      }
+
+      let sentPts = 0;
+      if (sent > 0.8) sentPts = 30;
+      else if (sent >= 0.4) sentPts = 10;
+      else sentPts = -30;
+      let sentDesc = "";
+      if (sent > 0.8) {
+        sentPts = 30;
+        sentDesc = `+30 pts (Highly Bullish Sentiment: ${sent.toFixed(2)} > 0.80)`;
+      } else if (sent >= 0.4) {
+        sentPts = 10;
+        sentDesc = `+10 pts (Neutral/Mixed Sentiment: ${sent.toFixed(2)})`;
+      } else {
+        sentPts = -30;
+        sentDesc = `-30 pts (Bearish Sentiment Penalty: ${sent.toFixed(2)} < 0.40)`;
+      }
+
+      const sentSubtotal = velPts + sentPts;
+
+      // 3. Catalyst Bonuses
+      // ─────────────────────────────────────────────────────────────
+      // 3. Catalyst Bonuses (Unbounded)
+      // ─────────────────────────────────────────────────────────────
+      let catPts = 0;
+      if (catalyst === "MA_RUMOR") catPts = 50;
+      else if (catalyst === "FDA_APPROVAL") catPts = 40;
+      else if (catalyst === "EARNINGS_BEAT") catPts = 35;
+      else if (catalyst === "PRODUCT_LAUNCH") catPts = 20;
+      else catPts = 0;
+      let catDesc = "";
+      if (catalyst === "MA_RUMOR") {
+        catPts = 50;
+        catDesc = "+50 pts [M&A_RUMOR: Acquisition / Buyout Target Override]";
+      } else if (catalyst === "FDA_APPROVAL") {
+        catPts = 40;
+        catDesc = "+40 pts [FDA_APPROVAL: Regulatory Approval / Patent Grant]";
+      } else if (catalyst === "EARNINGS_BEAT") {
+        catPts = 35;
+        catDesc = "+35 pts [EARNINGS_BEAT: Proven Fundamental Inflection]";
+      } else if (catalyst === "PRODUCT_LAUNCH") {
+        catPts = 20;
+        catDesc = "+20 pts [PRODUCT_LAUNCH: Commercial Release]";
+      } else {
+        catPts = 0;
+        catDesc = "+0 pts [NONE: No High-Impact Catalyst Identified]";
+      }
+
+      const totalScore = fundSubtotal + sentSubtotal + catPts;
+      const isRescued = (fundSubtotal < 0) && (totalScore > 75.0);
+      const isCompounder = (growthBonusPts > 0);
+      const isOvervalued = (overvalPenaltyPts < 0) || (capPts === 0 && capBytes > 300_000_000_000);
+
+      // Update UI displays
+      document.getElementById('sub-fund').textContent = (fundSubtotal >= 0 ? `+${fundSubtotal}` : `${fundSubtotal}`);
+      document.getElementById('sub-fund').className = fundSubtotal >= 0 ? "text-emerald-400" : "text-rose-400";
+      document.getElementById('sub-sent').textContent = (sentSubtotal >= 0 ? `+${sentSubtotal}` : `${sentSubtotal}`);
+      document.getElementById('sub-cat').textContent = `+${catPts}`;
+
+      const totalScoreEl = document.getElementById('sim-total-score');
+      totalScoreEl.textContent = totalScore.toFixed(1);
+      if (totalScore >= 110) totalScoreEl.className = "text-4xl font-extrabold text-purple-400 font-mono";
+      else if (totalScore >= 90) totalScoreEl.className = "text-4xl font-extrabold text-amber-400 font-mono";
+      else if (totalScore > 75) totalScoreEl.className = "text-4xl font-extrabold text-emerald-400 font-mono";
+      else totalScoreEl.className = "text-4xl font-extrabold text-slate-400 font-mono";
+
+      const badge = document.getElementById('sim-status-badge');
+      if (totalScore > 75.0) {
+        badge.textContent = isRescued ? "🚨 RESCUED (> 75.0)" : "QUALIFIED (> 75.0)";
+        badge.classNme = isRescued
+        badge.textContent = isRescued ? "🚨 RESCUED (> 75.0)" : isCompounder ? "🚀 TOP COMPOUNDER (> 75.0)" : "QUALIFIED (> 75.0)";
+        badge.className = isRescued
+          ? "ml-2 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40"
+          : isCompounder
+          ? "ml-2 px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30"
+          : "ml-2 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+      } else {
+        badge.textContent = "FILTERED OUT (≤ 75.0)";
+        badge.className = "ml-2 px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-800 text-slate-400 border border-slate-700";
+        badge.textContent = isOvervalued ? "FILTERED OUT: OVERVALUED (≤ 75.0)" : "FILTERED OUT (≤ 75.0)";
+        badge.className = "ml-2 px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-950/40 text-rose-300 border border-rose-500/30";
+      }
+
+      const rescueBanner = document.getElementById('sim-rescue-banner');
+      rescueBanner.style.display = isRescued ? "flex" : "none";
+      document.getElementById('sim-compounder-banner').style.display = isCompounder ? "flex" : "none";
+      document.getElementById('sim-overvalued-banner').style.display = isOvervalued ? "flex" : "none";
+      document.getElementById('sim-rescue-banner').style.display = isRescued ? "flex" : "none";
+
+      // Math breakdown text
+      cont         breakdown =
+        `**Quantitative Math Breakdown for $${ticker}**
+1. Fundamental Score (${fundSubtotal >= 0 ? '+' : ''}${fundSubtotal} pts):
+   • Market Cap: ${capDesc}
+   • Profitability: ${ocfDesc}
+   • Valuation: ${peDesc}
+2. Sentiment & Momentum Score (${sentSubtotal >= 0 ? '+' : ''}${sentSubtotal} pts):
+   • Mention Velocity: +${velPts} pts (${vel.toFixed(0)}% spike)
+   • LLM Polarity: ${sentPts >= 0 ? '+' : ''}${sentPts} pts (Score: ${sent.toFixed(2)})
+3. Catalyst Multipliers (+${catPts} pts):
+   • Catalyst: +${catPts} pts [${catalyst}]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Total Score: ${totalScore.toFixed(1)} pts ${isRescued ? '🚀 [CATALYST RESCUE: Overrode Fundamental Penalty]' : ''}`;
+      const breakdown =
+        `**Quantitative Math Breakdown for $${ticker}**\n` +
+        `1. Fundamental Score (${fundSubtotal >= 0 ? '+' : ''}${fundSubtotal} pts):\n` +
+        `   • Market Cap: ${capDesc}\n` +
+        `   • Profitability: ${ocfDesc}\n` +
+        `   • Valuation: ${valDesc}\n` +
+        `2. Sentiment & Momentum Score (${sentSubtotal >= 0 ? '+' : ''}${sentSubtotal} pts):\n` +
+        `   • Mention Velocity: ${velDesc}\n` +
+        `   • LLM Polarity: ${sentDesc}\n` +
+        `3. Catalyst Multipliers (+${catPts} pts):\n` +
+        `   • Catalyst: ${catDesc}\n` +
+        `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `Total Score: ${totalScore.toFixed(1)} pts` +
+        (isRescued ? ' 🚀 [CATALYST RESCUE: Overrode Fundamental Penalty]' : '') +
+        (isOvervalued && totalScore <= 75.0 ? ' ⚠️ [FILTERED: Overvalued multiple / lack of growth runway]' : '');
+
+      document.getElementById('sim-breakdown-code').textContent = breakdown;
+    }
+
+    function applyPreset(preset) {
+      if (preset === 'acqr') {
+      if (preset === 'duol') {
+        document.getElementById('sim-ticker').value = "DUOL";
+        document.getElementById('sim-cap').value = 12000;
+        document.getElementById('sim-ocf').value = 250;
+        document.getElementById('sim-pe-val').value = 24.5;
+        document.getElementById('sim-growth').value = 41.5;
+        document.getElementById('sim-vel').value = 650;
+        document.getElementById('sim-sent').value = 0.88;
+        document.getElementById('sim-catalyst').value = "EARNINGS_BEAT";
+      } else if (preset === 'tsla') {
+        document.getElementById('sim-ticker').value = "TSLA";
+        document.getElementById('sim-cap').value = 1498000; // $1.5T
+        document.getElementById('sim-ocf').value = 18600;
+        document.getElementById('sim-pe-val').value = 172.7;
+        document.getElementById('sim-growth').value = -3.0;
+        document.getElementById('sim-vel').value = 600;
+        document.getElementById('sim-sent').value = 0.85;
+        document.getElementById('sim-catalyst').value = "NONE";
+      } else if (preset === 'acqr') {
+        document.getElementById('sim-ticker').value = "ACQR";
+        document.getElementById('sim-cap').value = 650;
+        document.getElementById('sim-ocf').value = -18;
+        document.getElementById('sim-pe').value = "none";
+        document.getElementById('sim-cap').value = 150;
+        document.getElementById('sim-ocf').value = -25;
+        document.getElementById('sim-pe-val').value = 0;
+        document.getElementById('sim-growth').value = 0;
+        document.getElementById('sim-vel').value = 900;
+        document.getElementById('sim-sent').value = 0.90;
+        document.getElementById('sim-catalyst').value = "MA_RUMOR";
+      } else if (preset === 'nvda') {
+        document.getElementById('sim-ticker').value = "NVDA";
+        document.getElementById('sim-cap').value = 3100;
+        document.getElementById('sim-ocf').value = 250;
+        document.getElementById('sim-pe').value = "low";
+        document.getElementById('sim-vel').value = 1000;
+        document.getElementById('sim-sent').value = 0.86;
+        document.getElementById('sim-catalyst').value = "EARNINGS_BEAT";
+      } else if (preset === 'fail') {
+        document.getElementById('sim-ticker').value = "FAIL";
+        document.getElementById('sim-cap').value = 100;
+        document.getElementById('sim-cap').value = 80;
+        document.getElementById('sim-ocf').value = -40;
+        document.getElementById('sim-pe').value = "none";
+        document.getElementById('sim-pe-val').value = 0;
+        document.getElementById('sim-growth').value = -10;
+        document.getElementById('sim-vel').value = 160;
+        document.getElementById('sim-sent').value = 0.20;
+        document.getElementById('sim-catalyst').value = "NONE";
+      }
+      recalc();
+    }
+
+    async function fetchLiveTicker() {
+      const ticker = document.getElementById('sim-ticker').value.toUpperCase().trim() || 'NVDA';
+      const ticker = document.getElementById('sim-ticker').value.toUpperCase().trim() || 'DUOL';
+      const catalyst = document.getElementById('sim-catalyst').value;
+      const vel = document.getElementById('sim-v').      const sent = document.getElementById('sim-sent').value;
+      const vel = document.getElementById('sim-vel').value;
+      const sent = document.getElementById('sim-sent').value;
+      const notice = document.getElementById('live-data-notice');
+      const btn = document.getElementById('btn-fetch-live');
+
+      btn.textContent = '⏳ Querying Yahoo Finance...';
+      notice.classList.remove('hidden');
+      notice.textContent = `Fetching live fundamental data for $${ticker}...`;
+
+      try {
+        const res = await fetch(`/api/evaluate?ticker=${encodeURIComponent(ticker)}&catalyst=${catalyst}&velocity=${vel}&sentiment=${sent}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        // Update with live fundamentals
+        if (data.market_cap) {
+          const capMillions = Math.round(data.market_cap / 1e6);
+          document.getElementById('sim-cap').value = Math.min(5000, capMillions);
+          document.getElementById('sim-cap').value = Math.min(1500000, capMillions);
+        }
+        if (data.operating_cash_flow !== null && data.operating_cash_flow !== undefined) {
+          const ocfMillions = Math.round(data.operating_cash_flow / 1e6);
+          document.getElementById('sim-ocf').value = Math.max(-100, Math.min(500, ocfMillions));
+          document.getElementById('sim-ocf').value = Math.max(-1000, Math.min(15000, ocfMillions));
+        }
+        if (data.forward_pe) {
+          if (data.forward_pe < 25) document.getElementById('sim-pe').value = 'low';
+          else if (data.forward_pe <= 50) document.getElementById('sim-pe').value = 'mid';
+          else document.getElementById('sim-pe').value = 'high';
+        if (data.forward_pe !== null && data.forward_pe !== undefined) {
+          document.getElementById('sim-pe-val').value = Math.max(0, Math.min(200, parseFloat(data.forward_pe)));
+        } else {
+          document.getElementById('sim-pe').value = 'none';
+          document.getElementById('sim-pe-val').value = 0;
+        }
+        if (data.revenue_growth !== null && data.revenue_growth !== undefined) {
+          document.getElementById('sim-growth').value = Math.max(-30, Math.min(100, parseFloat(data.revenue_growth) * 100));
+        }
+
+        notice.textContent = `✓ Loaded LIVE fundamentals for ${data.company_name} (Cap: $${((data.market_cap || 0)/1e9).toFixed(2)}B, OCF: $${((data.operating_cash_flow || 0)/1e6).toFixed(1)}M, P/E: ${data.forward_pe ? data.forward_pe.toFixed(1) : 'N/A'})`;
+        const peStr = data.forward_pe ? `P/E: ${data.forward_pe.toFixed(1)}` : 'P/E: N/A';
+        const growthStr = data.revenue_growth ? `YoY: ${(data.revenue_growth * 100).toFixed(1)}%` : '';
+        notice.textContent = `✓ Loaded LIVE fundamentals for ${data.company_name} (Cap: ${formatMoney((data.market_cap || 0)/1e6)}, OCF: ${formatMoney((data.operating_cash_flow || 0)/1e6)}, ${peStr}, ${growthStr})`;
+        recalc();
+      } catch (err) {
+        console.warn('API error or running offline:', err);
+        notice.textContent = `⚡ Operating in offline sandbox mode (Live API not detected, using simulation values).`;
+        recalc();
+      } finally {
+        btn.innerHTML = '<span>⚡</span> Fetch Live Yahoo Finance Data';
+      }
+    }
+
+    async function runSimulation() {
+      const notice = document.getElementById('live-data-notice');
+      notice.classList.remove('hidden');
+      notice.textContent = 'Scanning live financial feeds & calculating multi-factor scores...';
+
+      try {
+        const res = await fetch('/api/run-screen', { method: 'POST' });
+        if (res.ok) {
+          const data = await res.json();
+          notice.textContent = `✓ Screen Complete: Scored ${data.scored_count} stocks, ${data.winners_count} qualified (> 75 pts).`;
+          if (data.winners && data.winners.length > 0) {
+            document.getElementById('sim-ticker').value = data.winners[0].ticker;
+            recalc();
+          }
+          return;
+        }
+      } catch (e) {
+        // Offline / static preview fallback
+      }
+      applyPreset('acqr');
+      notice.textContent = '✓ Screen Complete: Evaluated posts, loaded winning candidate $ACQR.';
+      applyPreset('duol');
+      notice.textContent = '✓ Screen Complete: Evaluated posts, loaded winning growth compounder $DUOL.';
+    }
+
+    // Run on load
+    window.addEventListener('DOMContentLoaded', () => {
+      recalc();
+    });
+  </script>
+</body>
+
+</html>

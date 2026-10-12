@@ -1,0 +1,9 @@
+boto3>=1.34.0
+praw>=7.7.1
+yfinance>=0.2.36
+groq>=0.9.0
+pydantic>=2.0.0
+requests>=2.31.0
+pytest>=8.0.0
+python-dotenv>=1.0.0
+
